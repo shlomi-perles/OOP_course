@@ -7,7 +7,7 @@ import oop.ex2.*;
  * It is your decision whether SpaceShip.java will be an interface, an abstract class,
  * a base class for the other spaceships or any other option you will choose.
  */
-public class SpaceShip {
+public abstract class SpaceShip {
 
     // Health constants
     final private static int HEALTH_INIT = 22;
@@ -15,8 +15,33 @@ public class SpaceShip {
 
     // Energy constants
     final private static int ENERGY_INIT = 210;
-    final private static int BASH_ENERGY_LOSS = 18;
+    final private static int SHIELD_ENERGY_BONUS = 18;
     final private static int NO_SHIELD_ENERGY_LOSS = 10;
+    final private static int SHOT_ENERGY_PRICE = 19;
+    final private static int TELEPORT_ENERGY_PRICE = 140;
+    final private static int SHIELD_ENERGY_PRICE = 3;
+
+    // Game rules constants
+    final private static int COOL_DOWN_TIME = 7;
+    final private static int DEAD = 0;
+
+    // Spaceship params
+    private SpaceShipPhysics physics;
+    private int energy;
+    private int health;
+    private int maxEnergy;
+    private int coolDownTimer;
+    private boolean shieldActive;
+    public Image shipImage;
+    public Image shieldImage;
+
+    /**
+     * SpaceShip constructor
+     */
+    SpaceShip() {
+        reset();
+    }
+
 
     /**
      * Does the actions of this ship for this round.
@@ -25,14 +50,35 @@ public class SpaceShip {
      * @param game The game object to which this ship belongs.
      */
     public void doAction(SpaceWars game) {
-        // your code goes here
+        if (coolDownTimer > 0) {
+            --coolDownTimer;
+        }
+
+        if (energy < maxEnergy) {
+            ++energy;
+        }
+
+        if (shieldActive) {
+            shipImage = GameGUI.ENEMY_SPACESHIP_IMAGE; //TODO: what?
+            shieldActive = false;
+        }
     }
+    public abstract void typeShipAction();
+
+
 
     /**
      * This method is called every time a collision with this ship occurs.
      */
     public void collidedWithAnotherShip() {
-        // your code goes here
+        if (shieldActive) {
+            maxEnergy += SHIELD_ENERGY_BONUS;
+            energy += SHIELD_ENERGY_BONUS;
+        } else {
+            maxEnergy -= NO_SHIELD_ENERGY_LOSS; //TODO: less than zero?
+            energy = Math.min(energy, maxEnergy);
+            health -= HEALTH_LOSS;
+        }
     }
 
     /**
@@ -40,7 +86,13 @@ public class SpaceShip {
      * attributes, and starts it at a new random position.
      */
     public void reset() {
-        // your code goes here
+        energy = ENERGY_INIT;
+        health = HEALTH_INIT;
+        maxEnergy = ENERGY_INIT;
+        physics = new SpaceShipPhysics();
+        coolDownTimer = 0;
+        shieldActive = false; //TODO: IMAGE rest too?
+        shipImage = GameGUI.ENEMY_SPACESHIP_IMAGE;
     }
 
     /**
@@ -49,7 +101,7 @@ public class SpaceShip {
      * @return True if the ship is dead. false otherwise.
      */
     public boolean isDead() {
-        // your code goes here
+        return health <= DEAD;
     }
 
     /**
@@ -58,7 +110,7 @@ public class SpaceShip {
      * @return The physics object that controls the ship.
      */
     public SpaceShipPhysics getPhysics() {
-        // your code goes here
+        return physics;
     }
 
     /**
@@ -66,7 +118,11 @@ public class SpaceShip {
      * gets hit by a shot.
      */
     public void gotHit() {
-        // your code goes here
+        if (!shieldActive) {
+            maxEnergy -= NO_SHIELD_ENERGY_LOSS; //TODO: less than zero?
+            energy = Math.min(energy, maxEnergy);
+            health -= HEALTH_LOSS;
+        }
     }
 
     /**
@@ -77,7 +133,7 @@ public class SpaceShip {
      * @return The image of this ship.
      */
     public Image getImage() {
-        // your code goes here
+        return shipImage;
     }
 
     /**
@@ -86,20 +142,31 @@ public class SpaceShip {
      * @param game The game object.
      */
     public void fire(SpaceWars game) {
-        // your code goes here
+        if (coolDownTimer <= 0 && energy >= SHOT_ENERGY_PRICE) {
+            game.addShot(physics);
+            energy -= SHOT_ENERGY_PRICE;
+            coolDownTimer -= COOL_DOWN_TIME;
+        }
     }
 
     /**
      * Attempts to turn on the shield.
      */
     public void shieldOn() {
-        // your code goes here
+        if (energy >= SHIELD_ENERGY_PRICE) {
+            shieldActive = true;
+            energy -= SHOT_ENERGY_PRICE;
+            shipImage = GameGUI.ENEMY_SPACESHIP_IMAGE_SHIELD;
+        }
     }
 
     /**
      * Attempts to teleport.
      */
     public void teleport() {
-        // your code goes here
+        if (energy >= TELEPORT_ENERGY_PRICE) {
+            physics = new SpaceShipPhysics();
+            energy -= TELEPORT_ENERGY_PRICE;
+        }
     }
 }
