@@ -32,8 +32,7 @@ public abstract class SpaceShip {
     private int maxEnergy;
     private int coolDownTimer;
     private boolean shieldActive;
-    public Image shipImage;
-    public Image shieldImage;
+    private Image shipImage;
 
     /**
      * SpaceShip constructor
@@ -54,16 +53,17 @@ public abstract class SpaceShip {
             --coolDownTimer;
         }
 
+        if (shieldActive) {
+            setShipImageNoShield();
+            shieldActive = false;
+        }
+        actionByShipType(game);
+
         if (energy < maxEnergy) {
             ++energy;
         }
-
-        if (shieldActive) {
-            shipImage = GameGUI.ENEMY_SPACESHIP_IMAGE; //TODO: what?
-            shieldActive = false;
-        }
     }
-    public abstract void typeShipAction();
+    public abstract void actionByShipType(SpaceWars game);
 
 
 
@@ -92,7 +92,7 @@ public abstract class SpaceShip {
         physics = new SpaceShipPhysics();
         coolDownTimer = 0;
         shieldActive = false; //TODO: IMAGE rest too?
-        shipImage = GameGUI.ENEMY_SPACESHIP_IMAGE;
+        setShipImageNoShield();
     }
 
     /**
@@ -135,6 +135,12 @@ public abstract class SpaceShip {
     public Image getImage() {
         return shipImage;
     }
+    public void setImage(Image image) {
+        shipImage = image;
+    }
+
+    public abstract void setShipImageNoShield();
+    public abstract void setShipImageShield();
 
     /**
      * Attempts to fire a shot.
@@ -156,7 +162,7 @@ public abstract class SpaceShip {
         if (energy >= SHIELD_ENERGY_PRICE) {
             shieldActive = true;
             energy -= SHOT_ENERGY_PRICE;
-            shipImage = GameGUI.ENEMY_SPACESHIP_IMAGE_SHIELD;
+            setShipImageShield();
         }
     }
 
