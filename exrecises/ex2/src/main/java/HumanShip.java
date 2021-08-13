@@ -1,9 +1,6 @@
 import oop.ex2.GameGUI;
 
 public class HumanShip extends SpaceShip {
-    public void HumanShip() {
-        setImage(GameGUI.SPACESHIP_IMAGE);
-    }
 
     public void setShipImageNoShield() {
         setImage(GameGUI.SPACESHIP_IMAGE);
