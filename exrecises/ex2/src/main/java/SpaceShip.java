@@ -16,7 +16,7 @@ public class SpaceShip {
     // Energy constants
     final private static int ENERGY_INIT = 210;
     final private static int BASH_ENERGY_LOSS = 18;
-    final private static int ENERGY_LOSS = 18;
+    final private static int NO_SHIELD_ENERGY_LOSS = 10;
 
     /**
      * Does the actions of this ship for this round.
