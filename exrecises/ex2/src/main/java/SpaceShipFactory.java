@@ -13,10 +13,39 @@ public class SpaceShipFactory {
      */
     public static SpaceShip[] createSpaceShips(String[] args) {
         SpaceShip[] ships = new SpaceShip[args.length];
-        for (String space : args) {
-            switch(space){
-                case "h":
+        for (int i = 0; i < args.length; ++i) {
+            switch (args[i]) {
+                case "h" -> {
+                    HumanShip humanShip = new HumanShip();
+                    ships[i] = humanShip;
+                }
 
+                case "d" -> {
+                    DrunkardShip drunkShip = new DrunkardShip();
+                    ships[i] = drunkShip;
+                }
+
+                case "r" -> {
+                    RunnerShip runnerShip = new RunnerShip();
+                    ships[i] = runnerShip;
+                }
+
+                case "a" -> {
+                    AggressiveShip aggressiveShip = new AggressiveShip();
+                    ships[i] = aggressiveShip;
+                }
+
+                case "b" -> {
+                    BasherShip basherShip = new BasherShip();
+                    ships[i] = basherShip;
+                }
+
+                case "s" -> {
+                    SpecialShip specialShip = new SpecialShip();
+                    ships[i] = specialShip;
+                }
+
+                default -> ships[i] = null; //TODO:check if args correct
             }
         }
         return ships;

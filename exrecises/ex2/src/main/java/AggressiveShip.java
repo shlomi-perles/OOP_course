@@ -1,6 +1,6 @@
 import oop.ex2.GameGUI;
 
-public class AggresiveShip extends SpaceShip {
+public class AggressiveShip extends SpaceShip {
     private final static double SHOOTING_ANGLE = 0.21;
 
     public void actionByShipType(SpaceWars game) {

@@ -63,8 +63,8 @@ public abstract class SpaceShip {
             ++energy;
         }
     }
-    public abstract void actionByShipType(SpaceWars game);
 
+    public abstract void actionByShipType(SpaceWars game);
 
 
     /**
@@ -75,7 +75,7 @@ public abstract class SpaceShip {
             maxEnergy += SHIELD_ENERGY_BONUS;
             energy += SHIELD_ENERGY_BONUS;
         } else {
-            maxEnergy -= NO_SHIELD_ENERGY_LOSS; //TODO: less than zero?
+            maxEnergy = Math.max(maxEnergy - NO_SHIELD_ENERGY_LOSS, 0);
             energy = Math.min(energy, maxEnergy);
             health -= HEALTH_LOSS;
         }
@@ -91,7 +91,7 @@ public abstract class SpaceShip {
         maxEnergy = ENERGY_INIT;
         physics = new SpaceShipPhysics();
         coolDownTimer = 0;
-        shieldActive = false; //TODO: IMAGE rest too?
+        shieldActive = false;
         setShipImageNoShield();
     }
 
@@ -135,11 +135,13 @@ public abstract class SpaceShip {
     public Image getImage() {
         return shipImage;
     }
+
     public void setImage(Image image) {
         shipImage = image;
     }
 
     public abstract void setShipImageNoShield();
+
     public abstract void setShipImageShield();
 
     /**
@@ -151,7 +153,7 @@ public abstract class SpaceShip {
         if (coolDownTimer <= 0 && energy >= SHOT_ENERGY_PRICE) {
             game.addShot(physics);
             energy -= SHOT_ENERGY_PRICE;
-            coolDownTimer -= COOL_DOWN_TIME;
+            coolDownTimer = COOL_DOWN_TIME;
         }
     }
 
