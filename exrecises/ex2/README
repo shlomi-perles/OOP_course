@@ -1,0 +1,38 @@
+shlomip100
+
+
+=============================
+=      File description     =
+=============================
+README
+AggressiveShip.java - aggressive ship implement
+BasherShip.java - basher ship implement
+DrunkardShip.java - drunkard ship implement
+EnemyShip.java - enemy ship abstract class
+HumanShip.java - human ship implement
+RunnerShip.java - runner ship implement
+SpaceShip.java - space ship abstract class
+SpaceShipFactory.java - supplied driver to create all the spaceship
+SpecialShip.java - special ship implement
+
+=============================
+=          Design           =
+=============================
+I applied the spaceship as an abstract 
+class and in addition I applied another 
+abstract class - a enemy ship that inherits from the spaceship class. 
+I chose this design because each spaceship type is an object in itself but they 
+are all in "is a" relationship with the spaceship as well as in this relationship with the enemy ship.
+Extensibility - New capabilities can be created for each spacecraft, all spacecraft together and all enemy 
+spacecraft together thanks to the abstract implement of those classes.
+Modularity - There is a platoon for each spacecraft and in addition a platoon that unites all the enemy spacecraft.
+drunkard ship behavior - Performs loops within a random radius and shoots at random times.
+special ship behavior - crazy spaceship! The spacecraft performs loops and fires in all directions.
+
+=============================
+=  Implementation details   =
+=============================
+Each spaceship department must implement its unique behavior 
+that will be activated in each round by "actionByShipType" method. Therefore this method 
+is abstract and each class implement the method. In addition, each type of spaceship 
+implement has its own GUI - the human spaceship and the enemy spaceship separately.

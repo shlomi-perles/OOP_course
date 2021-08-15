@@ -3,7 +3,7 @@
  */
 public class SpecialShip extends EnemyShip {
     /**
-     * crazy spaceship! The spacecraft performs loops and fires in all directions.
+     * crazy spaceship! The spaceship performs loops and fires in all directions.
      *
      * @param game SpaceWars object contain game's data
      */

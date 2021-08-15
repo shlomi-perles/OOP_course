@@ -15,35 +15,38 @@ public class SpaceShipFactory {
         SpaceShip[] ships = new SpaceShip[args.length];
         for (int i = 0; i < args.length; ++i) {
             switch (args[i]) {
-                case "h" -> {
+                case "h":
                     HumanShip humanShip = new HumanShip();
                     ships[i] = humanShip;
-                }
+                    break;
 
-                case "d" -> {
+                case "d":
                     DrunkardShip drunkShip = new DrunkardShip();
                     ships[i] = drunkShip;
-                }
+                    break;
 
-                case "r" -> {
+                case "r":
                     RunnerShip runnerShip = new RunnerShip();
                     ships[i] = runnerShip;
-                }
+                    break;
 
-                case "a" -> {
+                case "a":
                     AggressiveShip aggressiveShip = new AggressiveShip();
                     ships[i] = aggressiveShip;
-                }
+                    break;
 
-                case "b" -> {
+                case "b":
                     BasherShip basherShip = new BasherShip();
                     ships[i] = basherShip;
-                }
+                    break;
 
-                case "s" -> {
+                case "s":
                     SpecialShip specialShip = new SpecialShip();
                     ships[i] = specialShip;
-                }
+                    break;
+                default:
+                    ships[i] = null;
+                    break;
             }
         }
         return ships;
