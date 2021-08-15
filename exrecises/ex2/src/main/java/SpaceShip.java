@@ -64,6 +64,11 @@ public abstract class SpaceShip {
         }
     }
 
+    /**
+     * This method implements the unique behavior for each spacecship
+     *
+     * @param game SpaceWars object contain game's data
+     */
     public abstract void actionByShipType(SpaceWars game);
 
 
@@ -119,7 +124,7 @@ public abstract class SpaceShip {
      */
     public void gotHit() {
         if (!shieldActive) {
-            maxEnergy -= NO_SHIELD_ENERGY_LOSS; //TODO: less than zero?
+            maxEnergy -= Math.max(NO_SHIELD_ENERGY_LOSS, 0);
             energy = Math.min(energy, maxEnergy);
             health -= HEALTH_LOSS;
         }
@@ -140,8 +145,14 @@ public abstract class SpaceShip {
         shipImage = image;
     }
 
+    /**
+     * set spaceship image without shield
+     */
     public abstract void setShipImageNoShield();
 
+    /**
+     * set spaceship image with a shield
+     */
     public abstract void setShipImageShield();
 
     /**

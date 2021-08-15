@@ -5,7 +5,7 @@ public class AggressiveShip extends EnemyShip {
     private final static double SHOOTING_ANGLE = 0.21;
 
     /**
-     * this function implement aggressive ship behavior
+     * this method implement aggressive ship behavior
      *
      * @param game SpaceWars object contain game's data
      */
