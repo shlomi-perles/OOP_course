@@ -163,7 +163,7 @@ public abstract class SpaceShip {
     public void shieldOn() {
         if (energy >= SHIELD_ENERGY_PRICE) {
             shieldActive = true;
-            energy -= SHOT_ENERGY_PRICE;
+            energy -= SHIELD_ENERGY_PRICE;
             setShipImageShield();
         }
     }

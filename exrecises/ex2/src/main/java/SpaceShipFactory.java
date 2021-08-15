@@ -44,8 +44,6 @@ public class SpaceShipFactory {
                     SpecialShip specialShip = new SpecialShip();
                     ships[i] = specialShip;
                 }
-
-                default -> ships[i] = null; //TODO:check if args correct
             }
         }
         return ships;

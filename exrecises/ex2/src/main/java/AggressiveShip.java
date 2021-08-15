@@ -1,8 +1,14 @@
-import oop.ex2.GameGUI;
-
-public class AggressiveShip extends SpaceShip {
+/**
+ * this class implement the aggressive ship
+ */
+public class AggressiveShip extends EnemyShip {
     private final static double SHOOTING_ANGLE = 0.21;
 
+    /**
+     * this function implement aggressive ship behavior
+     *
+     * @param game SpaceWars object contain game's data
+     */
     public void actionByShipType(SpaceWars game) {
         int angle = 0;
         SpaceShip closestShip = game.getClosestShipTo(this);
@@ -17,13 +23,5 @@ public class AggressiveShip extends SpaceShip {
         getPhysics().move(true, angle);
 
         if (Math.abs(angleToClosestShip) <= SHOOTING_ANGLE) fire(game);
-    }
-
-    public void setShipImageNoShield() {
-        setImage(GameGUI.ENEMY_SPACESHIP_IMAGE);
-    }
-
-    public void setShipImageShield() {
-        setImage(GameGUI.ENEMY_SPACESHIP_IMAGE_SHIELD);
     }
 }

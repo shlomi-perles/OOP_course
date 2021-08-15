@@ -1,15 +1,14 @@
-import oop.ex2.GameGUI;
-
-public class SpecialShip extends SpaceShip{
+/**
+ * this class implement the special ship
+ */
+public class SpecialShip extends EnemyShip {
+    /**
+     * crazy spaceship! The spacecraft performs loops and fires in all directions.
+     *
+     * @param game SpaceWars object contain game's data
+     */
     public void actionByShipType(SpaceWars game) {
-
-    }
-
-    public void setShipImageNoShield() {
-        setImage(GameGUI.ENEMY_SPACESHIP_IMAGE);
-    }
-
-    public void setShipImageShield() {
-        setImage(GameGUI.ENEMY_SPACESHIP_IMAGE_SHIELD);
+        getPhysics().move(false, 1);
+        fire(game);
     }
 }
