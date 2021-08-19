@@ -1,21 +1,5 @@
-/**
- * Wraps an underlying Collection<String>and serves to both simplify its API and give it a common type with
- * the implemented SimpleHashSets.
- */
-public class CollectionFacadeSet implements SimpleSet {
+public class WrapperLinkedList implements SimpleSet {
 
-    /**
-     * The warped object by this facade.
-     */
-    protected java.util.Collection<String> collection;
-
-    /**
-     * Creates a new facade wrapping the specified collection.
-     *
-     * @param collection - The Collection to wrap.
-     */
-    public CollectionFacadeSet(java.util.Collection<String> collection) {
-    }
 
     /**
      * Add a specified element to the set if it's not already in it.
@@ -56,9 +40,4 @@ public class CollectionFacadeSet implements SimpleSet {
     public int size() {
         return 1;
     }
-    public int capacity() {
-        return 1;
-    }
-
-
 }

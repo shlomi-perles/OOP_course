@@ -30,14 +30,24 @@ public class OpenHashSet extends SimpleHashSet {
     public OpenHashSet(String[] data) {
     }
 
-    public boolean add(String newValue);
+    public boolean add(String newValue){
+        return true;
+    }
 
-    public boolean contains(String searchVal);
+    public boolean contains(String searchVal) {
+        return true;
+    }
 
-    public boolean delete(String toDelete);
+    public boolean delete(String toDelete) {
+        return true;
+    }
 
-    public int size();
+    public int size() {
+        return 1;
+    }
 
-    public int capacity();
+    public int capacity() {
+        return 1;
+    }
 
 }

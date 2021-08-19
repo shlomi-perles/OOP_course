@@ -96,7 +96,7 @@ public abstract class SimpleHashSet implements SimpleSet {
      * Clamps hashing indices to fit within the current table capacity (see the exercise description for
      * details).
      */
-    protected int clamp(int index);
+    abstract protected int clamp(int index);
 
     /**
      * If we add an item to the set, we use this method to check if we need to increase the table
