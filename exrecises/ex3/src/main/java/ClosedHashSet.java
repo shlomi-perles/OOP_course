@@ -41,8 +41,7 @@ public class ClosedHashSet extends SimpleHashSet {
      * factor (0.75) and lower load factor (0.25).
      */
     public ClosedHashSet() {
-        size = INITIAL_SIZE;
-        hashTable = new Object[INITIAL_CAPACITY];
+        this(DEFAULT_LOWER_CAPACITY, DEFAULT_LOWER_CAPACITY);
     }
 
     /**
@@ -53,8 +52,7 @@ public class ClosedHashSet extends SimpleHashSet {
      * @param data - Values to add to the set.
      */
     public ClosedHashSet(String[] data) {
-        size = INITIAL_SIZE;
-        hashTable = new Object[INITIAL_CAPACITY];
+        this();
         for (String value : data) {
             add(value);
         }

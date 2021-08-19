@@ -23,6 +23,11 @@ public class OpenHashSet extends SimpleHashSet {
     private LinkedListWrraper[] hashTable;
 
     /**
+     * number of items in the hash table
+     */
+    private int size;
+
+    /**
      * Constructs a new, empty table with the specified load factors, and the default initial capacity (16).
      *
      * @param upperLoadFactor - The upper load factor of the hash table.
@@ -30,6 +35,7 @@ public class OpenHashSet extends SimpleHashSet {
      */
     public OpenHashSet(float upperLoadFactor, float lowerLoadFactor) {
         super(upperLoadFactor, lowerLoadFactor);
+        size = INITIAL_SIZE;
         hashTableInitializer(INITIAL_CAPACITY);
     }
 
@@ -38,7 +44,7 @@ public class OpenHashSet extends SimpleHashSet {
      * factor (0.75) and lower load factor (0.25).
      */
     public OpenHashSet() {
-        hashTableInitializer(INITIAL_CAPACITY);
+        this(DEFAULT_LOWER_CAPACITY, DEFAULT_LOWER_CAPACITY);
     }
 
     /**
@@ -49,7 +55,7 @@ public class OpenHashSet extends SimpleHashSet {
      * @param data - Values to add to the set.
      */
     public OpenHashSet(String[] data) {
-        hashTableInitializer(INITIAL_CAPACITY);
+        this();
         for (String val : data) {
             add(val);
         }
@@ -81,7 +87,7 @@ public class OpenHashSet extends SimpleHashSet {
             resize(hashTable.length * RESIZE_FACTOR);
         }
         hashTable[clamp(newValue.hashCode())].add(newValue);
-        setSize(size() + 1);
+        ++size;
         return true;
     }
 
@@ -103,11 +109,13 @@ public class OpenHashSet extends SimpleHashSet {
      * @return True if toDelete is found and deleted, false otherwise.
      */
     public boolean delete(String toDelete) {
-        if (contains(toDelete)) {
+        if (!contains(toDelete)) {
             return false;
         }
+
         hashTable[clamp(toDelete.hashCode())].delete(toDelete);
-        setSize(size() - 1);
+        --size
+        ;
         if (needToDecreaseSet() && capacity() != MIN_CAPACITY) {
             resize(hashTable.length / RESIZE_FACTOR);
         }
@@ -121,7 +129,7 @@ public class OpenHashSet extends SimpleHashSet {
      * @return The number of elements currently in the set.
      */
     public int size() {
-        return getSize();
+        return this.size;
     }
 
     /**
@@ -130,7 +138,7 @@ public class OpenHashSet extends SimpleHashSet {
      * @return The current capacity (number of cells) of the table.
      */
     public int capacity() {
-        return getCapacity();
+        return hashTable.length;
     }
 
     /**
@@ -150,8 +158,7 @@ public class OpenHashSet extends SimpleHashSet {
         LinkedListWrraper[] hashTableCopy = hashTable.clone();
         hashTableInitializer(newSize);
 
-        setSize(INITIAL_SIZE);
-        setCapacity(hashTable.length);
+        size = INITIAL_SIZE;
 
         for (LinkedListWrraper linkedList : hashTableCopy) {
             for (String subItem : linkedList.collection) {

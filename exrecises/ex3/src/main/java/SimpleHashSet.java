@@ -130,42 +130,4 @@ public abstract class SimpleHashSet implements SimpleSet {
         float loadFactor = (float) size / capacity;
         return lowerLoadFactor > loadFactor;
     }
-
-    //TODO: getters wierd
-
-    /**
-     * get size of the hash table
-     *
-     * @return size of the hash table
-     */
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     * set hash table size
-     *
-     * @param size size of the new hash table
-     */
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    /**
-     * get capacity of the hash table
-     *
-     * @return capacity of the hash table
-     */
-    public int getCapacity() {
-        return capacity;
-    }
-
-    /**
-     * set hash table capacity
-     *
-     * @param capacity capacity of the new hash table
-     */
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
 }
