@@ -3,7 +3,17 @@
  */
 public abstract class SimpleHashSet implements SimpleSet {
     /**
-     * constant for default initilize
+     * minimum capacity hash table can have
+     */
+    protected static final int MIN_CAPACITY = 1;
+
+    /**
+     * constant factor for extend hash table
+     */
+    protected static final int RESIZE_FACTOR = 2;
+
+    /**
+     * constant for default initialize
      */
     protected static final int INITIAL_SIZE = 0;
 
@@ -25,22 +35,22 @@ public abstract class SimpleHashSet implements SimpleSet {
     /**
      * The number of element inside the set
      */
-    int size;
+    private int size;
 
     /**
      * current capacity of the set
      */
-    int capacity;
+    private int capacity;
 
     /**
      * Describes the upper load factor of the hash set.
      */
-    float upperLoadFactor;
+    private float upperLoadFactor;
 
     /**
      * Describes the lower load factor of the hash set.
      */
-    float lowerLoadFactor;
+    private float lowerLoadFactor;
 
 
     /**
@@ -102,7 +112,7 @@ public abstract class SimpleHashSet implements SimpleSet {
      * If we add an item to the set, we use this method to check if we need to increase the table
      * based on the load factor
      *
-     * @return
+     * @return true if need, false else
      */
     protected boolean needToIncreaseSet() {
         float loadFactor = (float) (size + 1) / capacity;
@@ -114,11 +124,48 @@ public abstract class SimpleHashSet implements SimpleSet {
      * If we remove an item from the set, we use this method to check if we need to decrease the table
      * based on the load factor
      *
-     * @return
+     * @return true if need, false else
      */
     protected boolean needToDecreaseSet() {
         float loadFactor = (float) size / capacity;
         return lowerLoadFactor > loadFactor;
     }
 
+    //TODO: getters wierd
+
+    /**
+     * get size of the hash table
+     *
+     * @return size of the hash table
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * set hash table size
+     *
+     * @param size size of the new hash table
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    /**
+     * get capacity of the hash table
+     *
+     * @return capacity of the hash table
+     */
+    public int getCapacity() {
+        return capacity;
+    }
+
+    /**
+     * set hash table capacity
+     *
+     * @param capacity capacity of the new hash table
+     */
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
 }

@@ -69,5 +69,20 @@ public class ClosedHashSet extends SimpleHashSet {
         return 1;
     }
 
+    /**
+     * Returns the size of the storage space currently allocated for the set.
+     *
+     * @return The current capacity (number of cells) of the table.
+     */
+    public int capacity() {
+        return 1;
+    }
 
+    /**
+     * Clamps hashing indices to fit within the current table capacity (see the exercise description for
+     * details).
+     */
+    protected int clamp(int index){
+        return 0;
+    }
 }

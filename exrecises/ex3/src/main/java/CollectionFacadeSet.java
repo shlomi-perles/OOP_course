@@ -56,6 +56,12 @@ public class CollectionFacadeSet implements SimpleSet {
     public int size() {
         return 1;
     }
+
+    /**
+     * Returns the size of the storage space currently allocated for the set.
+     *
+     * @return The current capacity (number of cells) of the table.
+     */
     public int capacity() {
         return 1;
     }
