@@ -44,7 +44,7 @@ public class OpenHashSet extends SimpleHashSet {
      * factor (0.75) and lower load factor (0.25).
      */
     public OpenHashSet() {
-        this(DEFAULT_LOWER_CAPACITY, DEFAULT_LOWER_CAPACITY);
+        this(DEFAULT_HIGHER_CAPACITY, DEFAULT_LOWER_CAPACITY);
     }
 
     /**
@@ -99,6 +99,10 @@ public class OpenHashSet extends SimpleHashSet {
      */
     public boolean contains(String searchVal) {
         int index = clamp(searchVal.hashCode());
+        if (index >= hashTable.length)
+        {
+            return false;
+        }
         return (hashTable[index].size() >= 0) && hashTable[index].contains(searchVal);
     }
 

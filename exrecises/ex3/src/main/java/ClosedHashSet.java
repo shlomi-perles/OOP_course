@@ -33,7 +33,7 @@ public class ClosedHashSet extends SimpleHashSet {
     public ClosedHashSet(float upperLoadFactor, float lowerLoadFactor) {
         super(upperLoadFactor, lowerLoadFactor);
         size = INITIAL_SIZE;
-        hashTable = new Object[getCapacity()];
+        hashTable = new Object[INITIAL_CAPACITY];
     }
 
     /**
@@ -41,7 +41,7 @@ public class ClosedHashSet extends SimpleHashSet {
      * factor (0.75) and lower load factor (0.25).
      */
     public ClosedHashSet() {
-        this(DEFAULT_LOWER_CAPACITY, DEFAULT_LOWER_CAPACITY);
+        this(DEFAULT_HIGHER_CAPACITY, DEFAULT_LOWER_CAPACITY);
     }
 
     /**

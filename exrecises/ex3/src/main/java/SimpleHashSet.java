@@ -33,16 +33,6 @@ public abstract class SimpleHashSet implements SimpleSet {
     protected static final float DEFAULT_HIGHER_CAPACITY = 0.75f;
 
     /**
-     * The number of element inside the set
-     */
-    private int size;
-
-    /**
-     * current capacity of the set
-     */
-    private int capacity;
-
-    /**
      * Describes the upper load factor of the hash set.
      */
     private float upperLoadFactor;
@@ -60,8 +50,6 @@ public abstract class SimpleHashSet implements SimpleSet {
      * @param lowerLoadFactor - The lower load factor before rehashing.
      */
     protected SimpleHashSet(float upperLoadFactor, float lowerLoadFactor) {
-        size = INITIAL_SIZE;
-        capacity = INITIAL_CAPACITY;
         this.upperLoadFactor = upperLoadFactor;
         this.lowerLoadFactor = lowerLoadFactor;
     }
@@ -71,10 +59,8 @@ public abstract class SimpleHashSet implements SimpleSet {
      * DEFAULT_HIGHER_CAPACITY.
      */
     protected SimpleHashSet() {
-        size = INITIAL_SIZE;
-        capacity = INITIAL_CAPACITY;
-        this.upperLoadFactor = DEFAULT_HIGHER_CAPACITY;
-        this.lowerLoadFactor = DEFAULT_LOWER_CAPACITY;
+        this(DEFAULT_HIGHER_CAPACITY, DEFAULT_LOWER_CAPACITY);
+
     }
 
     /**
@@ -115,7 +101,7 @@ public abstract class SimpleHashSet implements SimpleSet {
      * @return true if need, false else
      */
     protected boolean needToIncreaseSet() {
-        float loadFactor = (float) (size + 1) / capacity;
+        float loadFactor = (float) (size() + 1) / capacity();
         return upperLoadFactor < loadFactor;
     }
 
@@ -127,7 +113,7 @@ public abstract class SimpleHashSet implements SimpleSet {
      * @return true if need, false else
      */
     protected boolean needToDecreaseSet() {
-        float loadFactor = (float) size / capacity;
+        float loadFactor = (float) size() / capacity();
         return lowerLoadFactor > loadFactor;
     }
 }
