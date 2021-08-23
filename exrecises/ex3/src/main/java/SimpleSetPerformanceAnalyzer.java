@@ -105,7 +105,7 @@ public class SimpleSetPerformanceAnalyzer {
         if (dataSize != 0) {
             float percent = (float) (index) / dataSize * 100;
             if (percent % PERCENTAGE_MODULO == 0f) {
-                System.out.println((float) percent + "%\n");
+//                System.out.println((float) percent + "%\n");
             }
         }
     }

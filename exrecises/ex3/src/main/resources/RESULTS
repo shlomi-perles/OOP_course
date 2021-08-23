@@ -11,9 +11,9 @@ HashSet_AddData1 = 46
 #These values correspond to the time it takes (in ms) to insert data2 to all data structures
 OpenHashSet_AddData2 = 36
 ClosedHashSet_AddData2 = 19
-TreeSet_AddData2 = 37
+TreeSet_AddData2 = 60
 LinkedList_AddData2 = 14137
-HashSet_AddData2 = 31
+HashSet_AddData2 = 70
 
 #These values correspond to the time it takes (in ns) to check if "hi" is contained in
 #the data structures initialized with data1
