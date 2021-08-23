@@ -1,0 +1,62 @@
+shlomip100
+
+
+=============================
+=      File description     =
+=============================
+README
+RESULTS
+SimpleSetPerformanceAnalyzer.java - analyze sets
+SimpleHashSet.java - simple template the Hash sets inherited from
+OpenHashSet.java - implement open hash sets
+ClosedHashSet.java - implement close hash sets
+CollectionFacadeSet.java - facade for sets
+
+=============================
+=          Design           =
+=============================
+The design was identical to the proposal of the course staff.
+The simple hash set class is abstract and the others classes inherit from it.
+
+===============================
+= Implementation OpenHashSet  =
+===============================
+I implement a nested class "LinkedListWrraper" that inherit from CollectionFacadeSet.
+I could then create an array of facades wrapped in the LINKEDLIST.
+This helped me to use the linked list methods very easy.
+
+===============================
+= Implementation ClosedHashSet  =
+===============================
+The hash table is an array of Object. 
+By using this method, I was able to distinguish
+ between strings that are NULL and those that have been deleted. 
+The deleted ones are marked with the INT-1.
+
+=====================
+= Runtime Analysis  =
+=====================
+bad results data1.txt:
+	Those values with the same hash will be mapped to the same cell, 
+	which will make it for each iteration to find a new place to put them. 
+	As a result, the sets we implemented ran slowly.
+
+Strengths and weaknesses for each data structures:
+    LinkedList: It performed the worst out of all sets.
+    Due to the fact that we have to go through every item up until the one we want.
+    It is convenient to use this structure in very specific cases when accessing only the
+    top of the list is necessary.
+
+	hash set: This was the best average performance. When the hash is identical,
+	the built-in Java set performs extremely well, so their implementation avoids this issue.
+	In addition, the open set had slightly better performance than the closed set.
+
+    HashTree: In special cases, like inserting values with the same hash, this set worked perfectly.
+    In other cases, it has only slightly reduced performance compared to hash sets.
+    Therefore, this set is recommended when you want some sort of order in your items.
+
+compare to java builtin HashSet:
+    Comparatively to the sets we created, Java's performs much better.
+    This is especially apparent in data1. This can be caused by Java changing
+    the implementation of the data structure while it runs depending on the situation.
+    Java may also implement some sort of strategy to handle instances where there are many entries with the same hash.
