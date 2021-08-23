@@ -90,7 +90,9 @@ public abstract class SimpleHashSet implements SimpleSet {
 
     /**
      * Clamps hashing indices to fit within the current table capacity (see the exercise description for
-     * details).
+     *  details).
+     * @param index index of the item we clamp
+     * @return the clamp on the index
      */
     abstract protected int clamp(int index);
 

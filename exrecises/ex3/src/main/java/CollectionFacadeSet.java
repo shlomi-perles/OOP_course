@@ -1,7 +1,7 @@
 import java.util.Collection;
 
 /**
- * Wraps an underlying Collection<String>and serves to both simplify its API and give it a common type with
+ * Wraps an underlying Collection(String) and serves to both simplify its API and give it a common type with
  * the implemented SimpleHashSets.
  */
 public class CollectionFacadeSet implements SimpleSet {

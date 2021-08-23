@@ -3,6 +3,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 
+/**
+ * class for analyze sets
+ */
 public class SimpleSetPerformanceAnalyzer {
 
     private static final int NUM_OF_SETS = 5;
