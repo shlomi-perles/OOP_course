@@ -20,6 +20,9 @@ public class CommandFileParser {
      */
     private static final String ORDER_STR = "ORDER";
 
+
+    public static final String LINE_SEPARATOR = "#";
+
     /**
      * section size for calculations
      */
