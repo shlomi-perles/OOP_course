@@ -1,8 +1,5 @@
 package filesprocessing.parser;
 
-import filesprocessing.filter.Filter;
-import filesprocessing.order.Order;
-
 public class OrderParser {
     /**
      * the parse line

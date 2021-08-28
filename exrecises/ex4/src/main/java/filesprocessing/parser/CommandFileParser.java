@@ -1,5 +1,6 @@
 package filesprocessing.parser;
 
+import filesprocessing.Type2ErrorException;
 import filesprocessing.section.Section;
 
 import java.io.File;
@@ -14,14 +15,27 @@ public class CommandFileParser {
     /**
      * detect filter word
      */
-    private static final String FILTER_STR = "FILTER";
+    private static final String FILTER = "FILTER";
     /**
      * detect order word
      */
-    private static final String ORDER_STR = "ORDER";
+    private static final String ORDER = "ORDER";
 
-
+    /**
+     * seperator between args
+     */
     public static final String LINE_SEPARATOR = "#";
+
+    /**
+     * default filter in case of filter problem
+     */
+    public static final String DEFAULT_FILTER = "all";
+
+
+    /**
+     * default order in case of order problem
+     */
+    public static final String DEFAULT_ORDER = "abs";
 
     /**
      * section size for calculations
@@ -31,10 +45,15 @@ public class CommandFileParser {
     /**
      * section line index
      */
-    private static final int FILTER_INDEX = 0;
-    private static final int FILTER_TYPE_INDEX = 1;
-    private static final int ORDER_INDEX = 2;
-    private static final int ORDER_TYPE_INDEX = 3;
+    private static final int FILTER_INDEX = 0, FILTER_TYPE_INDEX = 1, ORDER_INDEX = 2, ORDER_TYPE_INDEX = 3;
+
+    /**
+     * errors messages
+     */
+    private final static String SCANNER_ERROR = "Read command file fail.",
+            BAD_SUBSECTION_NAME_ERROR = "bad sub-section name.",
+            COMMAND_FILE_ENDED_UNEXPECTEDLY = "Command file ended unexpectedly.";
+
 
     /**
      * scanner for the file
@@ -45,34 +64,27 @@ public class CommandFileParser {
      * constructor for commandFileParse
      *
      * @param commandFilePath string with the file path
-     * @throws Exception //TODO: throw?
+     * @throws Type2ErrorException throw when cant read command file
      */
-    public CommandFileParser(String commandFilePath) throws Exception { //TODO: throw?
-        scanner = new Scanner(new File(commandFilePath));
-    }
-
-    /**
-     * Convert commandFile to array
-     *
-     * @return array of lines in commad file
-     * @throws Exception //TODO: throw?
-     */
-    private ArrayList<String> fileToArray() throws Exception { //TODO: throw?
-        ArrayList<String> lines = new ArrayList<String>();
-        while (scanner.hasNext()) {
-            lines.add(scanner.nextLine());
+    public CommandFileParser(String commandFilePath) throws Type2ErrorException {
+        try {
+            scanner = new Scanner(new File(commandFilePath));
+        } catch (Exception e) {
+            throw new Type2ErrorException(SCANNER_ERROR);
         }
-        return lines;
+
     }
 
+
     /**
-     * main parset method. create section array while he is parser
+     * main parser method. create section array while he is parser
+     *
      * @return array of sections thar parsed
-     * @throws Exception //TODO:
+     * @throws Type2ErrorException //TODO:
      */
-    public ArrayList<Section> parse() throws Exception { //TODO: throw?
+    public ArrayList<Section> parse() throws Type2ErrorException {
         ArrayList<Section> sections = new ArrayList<Section>();
-        ArrayList<String> lines = this.fileToArray(); //TODO: try catch?
+        ArrayList<String> lines = this.fileToArray();
 
         int i = -1;
         int relativeSectionIndex;
@@ -80,39 +92,64 @@ public class CommandFileParser {
         for (String line : lines) { //TODO: try catch throws from parsers
             ++i;
             relativeSectionIndex = i % SECTION_SIZE;
-            //TODO: switches?
-            if (relativeSectionIndex == FILTER_INDEX) {
-                if (!Objects.equals(line, FILTER_STR)) throw new Exception("sdf"); //TODO: throw correct
-                curSection = new Section();
-                continue;
-            }
-            if (relativeSectionIndex == FILTER_TYPE_INDEX) {
-                try {
-                    curSection.setFilter(new FilterParser(line).parse());
 
-                } catch (Exception e) {  //TODO
-                    //TODO
-                }
-                continue;
-            }
+            switch (relativeSectionIndex) {
 
-            if (relativeSectionIndex == ORDER_INDEX)
-            {
-                if (!Objects.equals(line, ORDER_STR)) throw new Exception("sdf"); //TODO: throw correct
-                continue;
-            }
+                case FILTER_INDEX:
+                    if (!(Objects.equals(line, FILTER))) {
+                        throw new Type2ErrorException(BAD_SUBSECTION_NAME_ERROR);
+                    }
+                    curSection = new Section();
+                    break;
 
-            if (relativeSectionIndex == ORDER_TYPE_INDEX) {
-                try {
-                    curSection.setOrder(new OrderParser(line).parse());
+                case FILTER_TYPE_INDEX:
+                    try {
+                        curSection.setFilter(new FilterParser(line).parse());
 
-                } catch (Exception e) {  //TODO
-                    //TODO
-                }
-                continue;
+                    } catch (FilterException filterExceptionMsg) {
+                        curSection.setFilter(new FilterParser(DEFAULT_FILTER).parse();
+                        curSection.addLineError(i);
+                    }
+                    break;
+
+                case ORDER_INDEX:
+                    if (!(Objects.equals(line, ORDER))) {
+                        throw new Type2ErrorException(BAD_SUBSECTION_NAME_ERROR);
+                    }
+                    break;
+
+                case ORDER_TYPE_INDEX:
+                    try {
+                        curSection.setOrder(new OrderParser(line).parse());
+
+                    } catch (OrderException orderExceptionMsg) {
+                        curSection.setFilter(new FilterParser(DEFAULT_ORDER).parse();
+                        curSection.addLineError(i);
+                    }
+                    break;
             }
         }
-        if (i% SECTION_SIZE != 1) throw new Exception("sdf"); //TODO: throw correct
+        if (i % SECTION_SIZE != 1) throw new Type2ErrorException(COMMAND_FILE_ENDED_UNEXPECTEDLY);
         return sections;
+    }
+
+    /**
+     * Convert commandFile to array
+     *
+     * @return array of lines in command file
+     * @throws Type2ErrorException throw when there is a problem while reading command file
+     */
+    private ArrayList<String> fileToArray() throws Type2ErrorException { //TODO: throw?
+        ArrayList<String> lines = new ArrayList<String>();
+
+        try {
+            while (scanner.hasNext()) {
+                lines.add(scanner.nextLine());
+            }
+            return lines;
+
+        } catch (Exception e) {
+            throw new Type2ErrorException(SCANNER_ERROR);
+        }
     }
 }

@@ -1,7 +1,6 @@
 package filesprocessing.section;
 
 import filesprocessing.filter.Filter;
-import filesprocessing.order.Order;
 
 import java.util.ArrayList;
 
@@ -20,7 +19,7 @@ public class Section {
     private Filter filter;
     private Order order;
 
-    private ArrayList<String> errors; //TODO: final?
+    private ArrayList<Integer> errors; //TODO: final?
 
     /**
      * initializes the data of a section
@@ -28,7 +27,7 @@ public class Section {
     public Section() {
         this.filter = new Filter(); //TODO: default filter
         this.order = new Order(); //TODO: default order
-        errors = new ArrayList<String>();
+        errors = new ArrayList<Integer>();
     }
 
     public Filter getFilter() {
@@ -39,7 +38,7 @@ public class Section {
         return order;
     }
 
-    public ArrayList<String> getErrors() {
+    public ArrayList<Integer> getErrors() {
         return errors;
     }
 
@@ -51,5 +50,16 @@ public class Section {
         this.order = order;
     }
 
+    public void setNegateFilter(boolean negateFilter) {
+        this.negateFilter = negateFilter;
+    }
+
+    public void setReverseOrder(boolean reverseOrder) {
+        this.reverseOrder = reverseOrder;
+    }
+
+    public void addLineError(int lineNumber){
+        errors.add(lineNumber);
+    }
 
 }

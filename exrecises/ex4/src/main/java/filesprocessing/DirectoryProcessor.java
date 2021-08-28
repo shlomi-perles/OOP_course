@@ -1,10 +1,10 @@
 package filesprocessing;
 
-import filesprocessing.commandfile.Section;
 
-import java.io.File;
+import filesprocessing.parser.CommandFileParser;
+import filesprocessing.section.Section;
+
 import java.util.ArrayList;
-
 
 /**
  * main class that implement the directory processor software
@@ -31,7 +31,13 @@ public class DirectoryProcessor {
     private final static int COMMAND_FILE_ARG_INDEX = 1;
 
     /**
+     * error message for type 2
+     */
+    private final static String ERROR = "ERROR: ";
+
+    /**
      * method that print error message
+     *
      * @param errorMessage A string with the error message
      */
     static void printError(String errorMessage) {
@@ -41,36 +47,22 @@ public class DirectoryProcessor {
 
     /**
      * main method. Starts implement the directory processor software
+     *
      * @param args Two strings: sourcedir, commandfile
      */
     public static void main(String[] args) {
-        if (args.length != ARGS_NUM)
-        {
-            printError(ARGS_NUM_ERROR);
-            return;
-        }
         try {
-            String sourceDir = args[SOURCE_DIR_ARG_INDEX];
-            String commandFile = args[COMMAND_FILE_ARG_INDEX];
-
-            ArrayList<Section> allSections = new SectionFactory()
-                    .generateAllSections(new CommandFileParser(commandFile).getValidData());
-            ArrayList<File> allDirFiles = dir2array(sourceDir);
-
-
-            for (Section section : allSections) {
-                ArrayList<File> result = new validateFilters()
-                        .filterFiles(allDirFiles, section.getFilter(), section.isFilterNot());
-                Comparator<File> comparator =
-                        new CompareFactory().generateComparator(section.getOrder());
-                result = new MergeSort().mergeSort(result, comparator, section.isOrderReverse());
-                for (File file : result) {
-                    System.out.println(file.getName());
-                }
-                printErrors(section);
+            if (args.length != ARGS_NUM) {
+                throw new Type2ErrorException(ARGS_NUM_ERROR);
             }
-        } catch (Exception e) {
-            System.err.println(ERROR + e);
+
+            CommandFileParser parser = new CommandFileParser(args[COMMAND_FILE_ARG_INDEX]);
+
+            ArrayList<Section> sectionArrayList = parser.parse();
+            parser.printScript(sectionArrayList);
+
+        } catch (Type2ErrorException type2Exception) {
+            System.out.println(ERROR + type2Exception);
         }
     }
 }
