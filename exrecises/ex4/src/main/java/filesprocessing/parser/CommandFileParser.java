@@ -1,7 +1,7 @@
 package filesprocessing.parser;
 
 import filesprocessing.Type2ErrorException;
-import filesprocessing.section.Section;
+import filesprocessing.Section;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -104,10 +104,9 @@ public class CommandFileParser {
 
                 case FILTER_TYPE_INDEX:
                     try {
-                        curSection.setFilter(new FilterParser(line).parse());
+                        curSection.setFilter(new FilterParser(line).parse(curSection));
 
                     } catch (FilterException filterExceptionMsg) {
-                        curSection.setFilter(new FilterParser(DEFAULT_FILTER).parse();
                         curSection.addLineError(i);
                     }
                     break;
@@ -120,10 +119,9 @@ public class CommandFileParser {
 
                 case ORDER_TYPE_INDEX:
                     try {
-                        curSection.setOrder(new OrderParser(line).parse());
+                        curSection.setOrder(new OrderParser(line).parse(curSection));
 
                     } catch (OrderException orderExceptionMsg) {
-                        curSection.setFilter(new FilterParser(DEFAULT_ORDER).parse();
                         curSection.addLineError(i);
                     }
                     break;
@@ -139,7 +137,7 @@ public class CommandFileParser {
      * @return array of lines in command file
      * @throws Type2ErrorException throw when there is a problem while reading command file
      */
-    private ArrayList<String> fileToArray() throws Type2ErrorException { //TODO: throw?
+    private ArrayList<String> fileToArray() throws Type2ErrorException {
         ArrayList<String> lines = new ArrayList<String>();
 
         try {

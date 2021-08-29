@@ -8,10 +8,17 @@ import java.util.Comparator;
  */
 public class OrderFactory {
 
+    /**
+     * All types of order
+     */
     private final static String ABS = "abs", TYPE = "type", SIZE = "size";
 
-
-    public static Comparator<File> createFilter(String order) {
+    /**
+     * create comparator according to the order
+     * @param order string with the correct order
+     * @return The correct comparator for this order
+     */
+    public static Comparator<File> createComparator(String order) {
         switch (order) {
             case SIZE:
                 return new SizeOrder();

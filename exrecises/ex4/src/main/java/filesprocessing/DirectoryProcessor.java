@@ -2,9 +2,11 @@ package filesprocessing;
 
 
 import filesprocessing.parser.CommandFileParser;
-import filesprocessing.section.Section;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * main class that implement the directory processor software
@@ -16,9 +18,10 @@ public class DirectoryProcessor {
     private final static int ARGS_NUM = 2;
 
     /**
-     * error message while not receive two arguments
+     * error messages
      */
-    private final static String ARGS_NUM_ERROR = "Wrong usage. Should receive 2 arguments";
+    private final static String ARGS_NUM_ERROR = "Wrong usage. Should receive 2 arguments",
+            CANT_READ_FILES = "Cant read files.";
 
     /**
      * where source dir string located at args order
@@ -51,18 +54,43 @@ public class DirectoryProcessor {
      * @param args Two strings: sourcedir, commandfile
      */
     public static void main(String[] args) {
+        ArrayList<Section> sectionArrayList = null;
+        ArrayList<File> filesArray = null;
+
+        if (args.length != ARGS_NUM) {
+            System.out.println(ERROR + ARGS_NUM_ERROR);
+        }
         try {
-            if (args.length != ARGS_NUM) {
-                throw new Type2ErrorException(ARGS_NUM_ERROR);
-            }
-
-            CommandFileParser parser = new CommandFileParser(args[COMMAND_FILE_ARG_INDEX]);
-
-            ArrayList<Section> sectionArrayList = parser.parse();
-            parser.printScript(sectionArrayList);
+            CommandFileParser commandFileParser = new CommandFileParser(args[COMMAND_FILE_ARG_INDEX]);
+            sectionArrayList = commandFileParser.parse();
 
         } catch (Type2ErrorException type2Exception) {
             System.out.println(ERROR + type2Exception);
         }
+
+        try {
+            filesArray = dirToArray(args[SOURCE_DIR_ARG_INDEX]);
+        } catch (IOException ioException) {
+            System.out.println(ERROR + CANT_READ_FILES);
+        }
+
+        if (sectionArrayList == null) return;
+
+        for (Section section: sectionArrayList)
+        {
+            section.print(filesArray);
+        }
+    }
+
+
+    private static ArrayList<File> dirToArray(String sourceDir) throws  IOException {
+        ArrayList<File> result = new ArrayList<File>();
+        File files = new File(sourceDir);
+        for (File file : Objects.requireNonNull(files.listFiles())) {
+            if (!file.isDirectory()) {
+                result.add(file);
+            }
+        }
+        return result;
     }
 }
