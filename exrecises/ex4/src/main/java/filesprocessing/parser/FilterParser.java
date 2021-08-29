@@ -98,7 +98,7 @@ public class FilterParser {
             throw new FilterException();
         }
 
-        if (lineArray.length != expectedArgs) throw new FilterException();
+        if (lineArray.length != expectedArgs + 1) throw new FilterException();
 
         curSection.setNegateFilter(negateFilter);
         return FilterFactory.createFilter(filter, args);

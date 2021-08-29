@@ -16,6 +16,12 @@ public class SizeOrder implements Comparator<File> {
      * @return positive number if size of file1 larger than the other, and otherwise else.
      */
     public int compare(File file1, File file2) {
-        return Double.compare(file1.length(),file2.length());
+
+        int comparerResult = Double.compare(file1.length(),file2.length());
+        if (comparerResult == 0)
+        {
+            return new AbsOrder().compare(file1,file2);
+        }
+        return comparerResult;
     }
 }

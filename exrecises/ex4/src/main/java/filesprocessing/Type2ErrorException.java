@@ -8,9 +8,9 @@ public class Type2ErrorException extends Exception {
 
     /**
      * constructor for Type2ErrorException
-     * @param argsNumError the message error
+     * @param errorMessage the message error
      */
-    public Type2ErrorException(String argsNumError) {
-        super();
+    public Type2ErrorException(String errorMessage) {
+        super(errorMessage);
     }
 }

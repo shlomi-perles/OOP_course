@@ -37,7 +37,7 @@ public class Section {
      * initializes the data of a section
      */
     public Section() {
-        filter = FilterFactory.createFilter(DEFAULT_FILTER,new String[]{});
+        filter = FilterFactory.createFilter(DEFAULT_FILTER, new String[]{});
         order = OrderFactory.createComparator(DEFAULT_ORDER);
         errors = new ArrayList<Integer>();
     }
@@ -70,26 +70,24 @@ public class Section {
         this.reverseOrder = reverseOrder;
     }
 
-    public void addLineError(int lineNumber){
+    public void addLineError(int lineNumber) {
         errors.add(lineNumber);
     }
 
     /**
      * this method print files bt section rules
+     *
      * @param filesList array of files to print
      */
-    public void print(ArrayList<File> filesList)
-    {
-        for (Integer lineError: errors)
-        {
-            System.out.println(WARNING_MESSAGE + lineError);
+    public void print(ArrayList<File> filesList) {
+        for (Integer lineError : errors) {
+            System.err.println(WARNING_MESSAGE + lineError);
         }
 
-        QuickSort.sort(filesList, 0, filesList.size(), order);
+        QuickSort.sort(filesList, 0, filesList.size() - 1, order);
         if (reverseOrder) Collections.reverse(filesList);
 
-        for (File file: filesList)
-        {
+        for (File file : filesList) {
             System.out.println(file.getName());
         }
     }

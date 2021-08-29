@@ -4,6 +4,7 @@ import filesprocessing.Type2ErrorException;
 import filesprocessing.Section;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -69,10 +70,9 @@ public class CommandFileParser {
     public CommandFileParser(String commandFilePath) throws Type2ErrorException {
         try {
             scanner = new Scanner(new File(commandFilePath));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new Type2ErrorException(SCANNER_ERROR);
         }
-
     }
 
 
@@ -85,6 +85,7 @@ public class CommandFileParser {
     public ArrayList<Section> parse() throws Type2ErrorException {
         ArrayList<Section> sections = new ArrayList<Section>();
         ArrayList<String> lines = this.fileToArray();
+        if (lines.size() == 0) return sections;
 
         int i = -1;
         int relativeSectionIndex;
@@ -107,7 +108,7 @@ public class CommandFileParser {
                         curSection.setFilter(new FilterParser(line).parse(curSection));
 
                     } catch (FilterException filterExceptionMsg) {
-                        curSection.addLineError(i);
+                        curSection.addLineError(i + 1);
                     }
                     break;
 
@@ -122,12 +123,14 @@ public class CommandFileParser {
                         curSection.setOrder(new OrderParser(line).parse(curSection));
 
                     } catch (OrderException orderExceptionMsg) {
-                        curSection.addLineError(i);
+                        curSection.addLineError(i + 1);
                     }
+                    sections.add(curSection);
                     break;
             }
         }
-        if (i % SECTION_SIZE != 1) throw new Type2ErrorException(COMMAND_FILE_ENDED_UNEXPECTEDLY);
+        if (i % SECTION_SIZE != SECTION_SIZE - 1)
+            throw new Type2ErrorException(COMMAND_FILE_ENDED_UNEXPECTEDLY);
         return sections;
     }
 

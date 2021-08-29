@@ -38,15 +38,6 @@ public class DirectoryProcessor {
      */
     private final static String ERROR = "ERROR: ";
 
-    /**
-     * method that print error message
-     *
-     * @param errorMessage A string with the error message
-     */
-    static void printError(String errorMessage) {
-        System.err.println("ERROR: " + errorMessage);
-    }
-
 
     /**
      * main method. Starts implement the directory processor software
@@ -58,20 +49,23 @@ public class DirectoryProcessor {
         ArrayList<File> filesArray = null;
 
         if (args.length != ARGS_NUM) {
-            System.out.println(ERROR + ARGS_NUM_ERROR);
+            System.err.println(ERROR + ARGS_NUM_ERROR);
+            return;
         }
         try {
             CommandFileParser commandFileParser = new CommandFileParser(args[COMMAND_FILE_ARG_INDEX]);
             sectionArrayList = commandFileParser.parse();
 
         } catch (Type2ErrorException type2Exception) {
-            System.out.println(ERROR + type2Exception);
+            System.err.println(ERROR + type2Exception);
+            return;
         }
 
         try {
             filesArray = dirToArray(args[SOURCE_DIR_ARG_INDEX]);
         } catch (IOException ioException) {
-            System.out.println(ERROR + CANT_READ_FILES);
+            System.err.println(ERROR + CANT_READ_FILES);
+            return;
         }
 
         if (sectionArrayList == null) return;
