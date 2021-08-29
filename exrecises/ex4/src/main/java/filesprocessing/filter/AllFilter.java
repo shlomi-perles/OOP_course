@@ -10,7 +10,7 @@ public class AllFilter implements Filter {
     /**
      * gets all files
      * @param file the file we want to filter
-     * @return
+     * @return always true
      */
     public boolean filter(File file) {
         return true;

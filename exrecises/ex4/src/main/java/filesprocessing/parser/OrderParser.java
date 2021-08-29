@@ -7,6 +7,9 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * This class parse order line
+ */
 public class OrderParser {
 
     /**
