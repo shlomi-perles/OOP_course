@@ -71,3 +71,10 @@ Exception
 There are two basic types of division provided by the course.
 The internal hierarchy results from a division of the types into smaller parts - each
 type was used in a different situation and therefore this division was necessary.
+
+=============================
+=  sort implement           =
+=============================
+I implemented a quick sort. The implement sort files stored in the ArrayList data structure.
+The access to the files in this array is O (1), so since it is simple and fast, it was worth using
+it for sorting. Comparisons were performed with the help of the parser's comparator.
