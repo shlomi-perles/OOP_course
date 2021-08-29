@@ -1,5 +1,7 @@
 package filesprocessing;
 
+import filesprocessing.Type2ErrorException;
+
 /**
  * this exception thrown when there is a problem of type 2
  */

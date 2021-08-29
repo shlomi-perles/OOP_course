@@ -1,7 +1,7 @@
 package filesprocessing.parser;
 
 /**
- * this exception throw when there is a type 1 exeption
+ * this exception throw when there is a type 1 exception
  */
 public abstract class Type1ErrorException extends Exception {
     private static final long serialVersionUID = 1L;

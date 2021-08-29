@@ -1,9 +1,6 @@
 package filesprocessing.parser;
 
-import filesprocessing.FileException;
-import filesprocessing.SectionTitleException;
-import filesprocessing.Type2ErrorException;
-import filesprocessing.Section;
+import filesprocessing.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,9 +48,9 @@ public class CommandFileParser {
      * constructor for commandFileParse
      *
      * @param commandFilePath string with the file path
-     * @throws Type2ErrorException throw when can't read command file
+     * @throws FileException throw when can't read command file
      */
-    public CommandFileParser(String commandFilePath) throws Type2ErrorException {
+    public CommandFileParser(String commandFilePath) throws FileException {
         try {
             scanner = new Scanner(new File(commandFilePath));
         } catch (IOException e) {
@@ -130,9 +127,9 @@ public class CommandFileParser {
      * Convert commandFile to array
      *
      * @return array of lines in command file
-     * @throws Type2ErrorException throw when there is a problem while reading command file
+     * @throws FileException throw when there is a problem while reading command file
      */
-    private ArrayList<String> fileToArray() throws Type2ErrorException {
+    private ArrayList<String> fileToArray() throws FileException {
         ArrayList<String> lines = new ArrayList<String>();
 
         try {
