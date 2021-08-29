@@ -1,0 +1,56 @@
+shlomip100
+
+
+=============================
+=      File description     =
+=============================
+README
+filesprocessing\DirectoryProcessor.java - main class
+filesprocessing\QuickSort.java - quick sort implement
+filesprocessing\Section.java - implement section class
+filesprocessing\Type2ErrorException.java - exception class of type 2
+filesprocessing\filter\AllFilter.java - The all filter
+filesprocessing\filter\BetweenFilter.java - The between filter
+filesprocessing\filter\ContainsFilter.java - The contains filter
+filesprocessing\filter\ExecutableFilter.java - The executable filter
+filesprocessing\filter\FileFilter.java - The File filter
+filesprocessing\filter\Filter.java - The filter interface
+filesprocessing\filter\FilterFactory.java - The filter factory
+filesprocessing\filter\GreaterThanFilter.java - The greater than filter
+filesprocessing\filter\HiddenFilter.java - The hidden filter
+filesprocessing\filter\PrefixFilter.java - The prefix filter
+filesprocessing\filter\QuestionFilter.java - The question filter abstract class
+filesprocessing\filter\SmallerThanFilter.java - The smaller than filter
+filesprocessing\filter\SuffixFilter.java - The suffix filter
+filesprocessing\filter\WritableFilter.java - The writable filter
+filesprocessing\order\AbsOrder.java - The abs comparator
+filesprocessing\order\OrderFactory.java - The order factory
+filesprocessing\order\SizeOrder.java - The size comparator
+filesprocessing\order\TypeOrder.java - The type comparator
+filesprocessing\parser\CommandFileParser.java - parse command file
+filesprocessing\parser\FilterException.java - Exception for filter problem
+filesprocessing\parser\FilterParser.java - parse filter line
+filesprocessing\parser\OrderException.java - Exception for order problems
+filesprocessing\parser\OrderParser.java - parse order line
+
+=============================
+=          Design           =
+=============================
+I applied the spaceship as an abstract 
+class and in addition I applied another 
+abstract class - a enemy ship that inherits from the spaceship class. 
+I chose this design because each spaceship type is an object in itself but they 
+are all in "is a" relationship with the spaceship as well as in this relationship with the enemy ship.
+Extensibility - New capabilities can be created for each spacecraft, all spacecraft together and all enemy 
+spacecraft together thanks to the abstract implement of those classes.
+Modularity - There is a platoon for each spacecraft and in addition a platoon that unites all the enemy spacecraft.
+drunkard ship behavior - Performs loops within a random radius and shoots at random times.
+special ship behavior - crazy spaceship! The spacecraft performs loops and fires in all directions.
+
+=============================
+=  Implementation details   =
+=============================
+Each spaceship department must implement its unique behavior 
+that will be activated in each round by "actionByShipType" method. Therefore this method 
+is abstract and each class implement the method. In addition, each type of spaceship 
+implement has its own GUI - the human spaceship and the enemy spaceship separately.
