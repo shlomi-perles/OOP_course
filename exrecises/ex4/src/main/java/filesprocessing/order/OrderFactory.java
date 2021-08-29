@@ -15,6 +15,7 @@ public class OrderFactory {
 
     /**
      * create comparator according to the order
+     *
      * @param order string with the correct order
      * @return The correct comparator for this order
      */

@@ -19,20 +19,35 @@ import java.util.Comparator;
 public class Section {
 
 
-    private static final String DEFAULT_ORDER = "abs";
-    private static final String DEFAULT_FILTER = "all";
+    /**
+     * defaults order and filter
+     */
+    private static final String DEFAULT_ORDER = "abs", DEFAULT_FILTER = "all";
 
     /**
      * warning message
      */
     private static final String WARNING_MESSAGE = "Warning in line ";
 
-    private boolean negateFilter;
-    private boolean reverseOrder;
+    /**
+     * flags indicates if negate filter in this section or reverse order
+     */
+    private boolean negateFilter, reverseOrder;
+
+    /**
+     * filter class
+     */
     private Filter filter;
+
+    /**
+     * comparator with specific order compare
+     */
     private Comparator<File> order;
 
-    private ArrayList<Integer> errors; //TODO: final?
+    /**
+     * save all lines error of curren section
+     */
+    private ArrayList<Integer> errors;
 
     /**
      * initializes the data of a section
@@ -43,34 +58,74 @@ public class Section {
         errors = new ArrayList<Integer>();
     }
 
+    /**
+     * getter for filter
+     *
+     * @return filter
+     */
     public Filter getFilter() {
         return filter;
     }
 
+    /**
+     * getter for order comparator
+     *
+     * @return order comprator
+     */
     public Comparator<File> getOrder() {
         return order;
     }
 
+    /**
+     * getter for errors array
+     *
+     * @return array of ints that contains lines number error
+     */
     public ArrayList<Integer> getErrors() {
         return errors;
     }
 
+    /**
+     * setter for filter
+     *
+     * @param filter filter to set
+     */
     public void setFilter(Filter filter) {
         this.filter = filter;
     }
 
+    /**
+     * setter for order
+     *
+     * @param order order to set
+     */
     public void setOrder(Comparator<File> order) {
         this.order = order;
     }
 
+    /**
+     * setter for negate filter
+     *
+     * @param negateFilter boolean we want to set this flag
+     */
     public void setNegateFilter(boolean negateFilter) {
         this.negateFilter = negateFilter;
     }
 
+    /**
+     * setter for reverse order
+     *
+     * @param reverseOrder boolean - set true if need reverse order needed
+     */
     public void setReverseOrder(boolean reverseOrder) {
         this.reverseOrder = reverseOrder;
     }
 
+    /**
+     * Add a line index to error array
+     *
+     * @param lineNumber int with the index of the error of the section
+     */
     public void addLineError(int lineNumber) {
         errors.add(lineNumber);
     }
@@ -86,7 +141,6 @@ public class Section {
         }
 
         filesList = filterFiles(filesList);
-
         QuickSort.sort(filesList, 0, filesList.size() - 1, order);
         if (reverseOrder) Collections.reverse(filesList);
 
@@ -96,7 +150,7 @@ public class Section {
     }
 
     /**
-     * filter files list accotding to the current filter
+     * filter files list according to the current filter
      *
      * @param filesList list with all file in dir
      */
@@ -104,13 +158,13 @@ public class Section {
         ArrayList<File> filterFilesList = new ArrayList<File>();
         for (File file : filesList) {
             boolean filterCurFile = filter.filter(file);
+
             if (filterCurFile && !negateFilter) {
                 filterFilesList.add(file);
 
             } else if (!filterCurFile && negateFilter) {
                 filterFilesList.add(file);
             }
-
         }
         return filterFilesList;
     }

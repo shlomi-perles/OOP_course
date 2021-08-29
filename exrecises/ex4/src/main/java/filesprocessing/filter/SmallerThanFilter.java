@@ -9,12 +9,12 @@ public class SmallerThanFilter implements Filter {
     /**
      * bound of the filter
      */
-    private double upperBound;
+    private final double upperBound;
 
     /**
      * conver to kb
      */
-    private static double KB = 1024.0f;
+    private final double KB = 1024.0f;
 
     /**
      * constructor for SmallerThanFilter

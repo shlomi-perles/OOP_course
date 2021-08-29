@@ -7,7 +7,7 @@ public abstract class QuestionFilter implements Filter {
     /**
      * if the answer is yes - true, otherwise - false
      */
-    private boolean yesOrNo;
+    private final boolean yesOrNo;
 
     /**
      * constructor for ExecutableFilter

@@ -17,10 +17,9 @@ public class SizeOrder implements Comparator<File> {
      */
     public int compare(File file1, File file2) {
 
-        int comparerResult = Double.compare(file1.length(),file2.length());
-        if (comparerResult == 0)
-        {
-            return new AbsOrder().compare(file1,file2);
+        int comparerResult = Double.compare(file1.length(), file2.length());
+        if (comparerResult == 0) {
+            return new AbsOrder().compare(file1, file2);
         }
         return comparerResult;
     }

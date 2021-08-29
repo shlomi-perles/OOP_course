@@ -19,9 +19,9 @@ public class TypeOrder implements Comparator<File> {
         String file1Type = file1.getName().substring(file1.getName().lastIndexOf(".") + 1);
         String file2Type = file2.getName().substring(file2.getName().lastIndexOf(".") + 1);
         int comparerResult = file1Type.compareTo(file2Type);
-        if (comparerResult == 0)
-        {
-            return new AbsOrder().compare(file1,file2);
+        
+        if (comparerResult == 0) {
+            return new AbsOrder().compare(file1, file2);
         }
         return comparerResult;
     }

@@ -37,7 +37,7 @@ public class FilterParser {
     /**
      * args of the filter line
      */
-    private String[] lineArray;
+    private final String[] lineArray;
 
     /**
      * constructor for FilterParser
@@ -48,6 +48,13 @@ public class FilterParser {
         this.lineArray = line.split(CommandFileParser.LINE_SEPARATOR);
     }
 
+    /**
+     * this method parse filter line and make a Filter object accordingly
+     *
+     * @param curSection the current section that the filter belong to
+     * @return the correct filter
+     * @throws FilterException if filter parameters not correct
+     */
     public Filter parse(Section curSection) throws FilterException {
         String filter;
         int expectedArgs;
@@ -65,27 +72,21 @@ public class FilterParser {
 
         if (Arrays.asList(ONE_DOUBLE_FILTERS).contains(filter)) {
             negateFilter = parseNot(args, ARGS_NUM_ONE_DOUBLE);
-            if (negateFilter) additionNotArg = 1;
-            expectedArgs = ARGS_NUM_ONE_DOUBLE + additionNotArg;
-
+            expectedArgs = ARGS_NUM_ONE_DOUBLE;
             doubleCheck(args);
 
         } else if (Arrays.asList(TWO_DOUBLE_FILTERS).contains(filter)) {
             negateFilter = parseNot(args, ARGS_NUM_TWO_DOUBLE);
-            if (negateFilter) additionNotArg = 1;
-            expectedArgs = ARGS_NUM_TWO_DOUBLE + additionNotArg;
-
+            expectedArgs = ARGS_NUM_TWO_DOUBLE;
             BetweenCheck(args);
 
         } else if (Arrays.asList(CONTAINS_FILTERS).contains(filter)) {
             negateFilter = parseNot(args, ARGS_NUM_ONE_STR);
-            if (negateFilter) additionNotArg = 1;
-            expectedArgs = ARGS_NUM_ONE_STR + additionNotArg;
+            expectedArgs = ARGS_NUM_ONE_STR;
 
         } else if (Arrays.asList(YES_NO_FILTERS).contains(filter)) {
             negateFilter = parseNot(args, ARGS_NUM_ONE_STR);
-            if (negateFilter) additionNotArg = 1;
-            expectedArgs = ARGS_NUM_ONE_STR + additionNotArg;
+            expectedArgs = ARGS_NUM_ONE_STR;
             try {
                 args[YES_NO_INDEX] = String.valueOf(yesNoCheck(args[YES_NO_INDEX]));
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -101,6 +102,8 @@ public class FilterParser {
             throw new FilterException();
         }
 
+        if (negateFilter) additionNotArg = 1;
+        expectedArgs += additionNotArg;
         if (lineArray.length != expectedArgs + 1) throw new FilterException();
 
         curSection.setNegateFilter(negateFilter);

@@ -23,25 +23,9 @@ public class CommandFileParser {
     private static final String ORDER = "ORDER";
 
     /**
-     * seperator between args
+     * separator between args
      */
     public static final String LINE_SEPARATOR = "#";
-
-    /**
-     * default filter in case of filter problem
-     */
-    public static final String DEFAULT_FILTER = "all";
-
-
-    /**
-     * default order in case of order problem
-     */
-    public static final String DEFAULT_ORDER = "abs";
-
-    /**
-     * section size for calculations
-     */
-    private static final int SECTION_SIZE = 4;
 
     /**
      * section line index
@@ -59,13 +43,13 @@ public class CommandFileParser {
     /**
      * scanner for the file
      */
-    private Scanner scanner; //TODO: final?
+    private final Scanner scanner;
 
     /**
      * constructor for commandFileParse
      *
      * @param commandFilePath string with the file path
-     * @throws Type2ErrorException throw when cant read command file
+     * @throws Type2ErrorException throw when can't read command file
      */
     public CommandFileParser(String commandFilePath) throws Type2ErrorException {
         try {
@@ -80,20 +64,17 @@ public class CommandFileParser {
      * main parser method. create section array while he is parser
      *
      * @return array of sections thar parsed
-     * @throws Type2ErrorException //TODO:
+     * @throws Type2ErrorException throw when a problem at FILTER or ORDER
      */
     public ArrayList<Section> parse() throws Type2ErrorException {
         ArrayList<Section> sections = new ArrayList<Section>();
         ArrayList<String> lines = this.fileToArray();
-        if (lines.size() == 0) return sections;
-
-        int i = -1;
 
         Section curSection = new Section();
-        int lastPhase = 0; // initial to last phase for avoid cold-start problem
-        for (String line : lines) { //TODO: try catch throws from parsers
+        int lastPhase = 0, i = -1;
+        for (String line : lines) {
             ++i;
-            switch (lastPhase) {
+            switch (lastPhase) { // four possible phases: FILTER, filter type, ORDER, order type
 
                 case FILTER_INDEX:
                     if (!(Objects.equals(line, FILTER))) {

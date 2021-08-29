@@ -7,7 +7,10 @@ import java.io.File;
  */
 public class FileFilter implements Filter {
 
-    private String searchName;
+    /**
+     * given name for search
+     */
+    private final String searchName;
 
     /**
      * FileFilter constructor

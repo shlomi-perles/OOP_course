@@ -6,7 +6,10 @@ import java.io.File;
  * Filter that search for a string inside file name
  */
 public class ContainsFilter implements Filter {
-    private String containsString;
+    /**
+     * given string for contain check
+     */
+    private final String containsString;
 
     /**
      * constructor for ContainsFilter

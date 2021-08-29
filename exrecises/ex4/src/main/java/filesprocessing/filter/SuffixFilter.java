@@ -6,7 +6,10 @@ import java.io.File;
  * Filter that search if file name end with specific string
  */
 public class SuffixFilter implements Filter {
-    private String suffix;
+    /**
+     * given suffix to filter
+     */
+    private final String suffix;
 
     /**
      * constructor for SuffixFilter

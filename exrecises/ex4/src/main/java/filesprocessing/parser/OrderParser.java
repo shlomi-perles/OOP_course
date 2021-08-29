@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class OrderParser {
+
     /**
      * legal reverse string
      */
@@ -28,7 +29,7 @@ public class OrderParser {
     /**
      * args of the order line
      */
-    private String[] lineArray;
+    private final String[] lineArray;
 
     /**
      * constructor for OrderParser
@@ -39,6 +40,13 @@ public class OrderParser {
         this.lineArray = line.split(CommandFileParser.LINE_SEPARATOR);
     }
 
+    /**
+     * this method parse the line of order type
+     *
+     * @param curSection the section that the order belong to
+     * @return comparator according to the given order
+     * @throws OrderException if not valid order given
+     */
     public Comparator<File> parse(Section curSection) throws OrderException {
         String order;
         try {
@@ -56,6 +64,7 @@ public class OrderParser {
 
     /**
      * if only one argument - its the order type. else - check if its legal reverse
+     *
      * @return false if not revers, true otherwise
      * @throws OrderException if not legal string
      */
@@ -67,6 +76,4 @@ public class OrderParser {
         }
         throw new OrderException();
     }
-
-
 }

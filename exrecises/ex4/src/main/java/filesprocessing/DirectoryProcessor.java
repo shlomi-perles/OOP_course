@@ -46,7 +46,7 @@ public class DirectoryProcessor {
      */
     public static void main(String[] args) {
         ArrayList<Section> sectionArrayList = new ArrayList<Section>();
-        ArrayList<File> filesArray =new ArrayList<File>();
+        ArrayList<File> filesArray = new ArrayList<File>();
 
         if (args.length != ARGS_NUM) {
             System.err.println(ERROR + ARGS_NUM_ERROR);
@@ -68,14 +68,13 @@ public class DirectoryProcessor {
             return;
         }
 
-        for (Section section: sectionArrayList)
-        {
+        for (Section section : sectionArrayList) {
             section.print(new ArrayList<File>(filesArray));
         }
     }
 
 
-    private static ArrayList<File> dirToArray(String sourceDir) throws  IOException {
+    private static ArrayList<File> dirToArray(String sourceDir) throws IOException {
         ArrayList<File> result = new ArrayList<File>();
         File files = new File(sourceDir);
         for (File file : Objects.requireNonNull(files.listFiles())) {

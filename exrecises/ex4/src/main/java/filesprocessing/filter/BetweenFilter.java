@@ -9,12 +9,12 @@ public class BetweenFilter implements Filter {
     /**
      * bounds of the filter
      */
-    private double upperBoundary, lowerBoundary;
+    private final double upperBoundary, lowerBoundary;
 
     /**
      * conver to kb
      */
-    private static double KB = 1024.0f;
+    private final static double KB = 1024.0f;
 
     /**
      * constructor for between filter

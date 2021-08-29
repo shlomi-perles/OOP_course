@@ -6,7 +6,10 @@ import java.io.File;
  * Filter that search if file name start with specific string
  */
 public class PrefixFilter implements Filter {
-    private String prefix;
+    /**
+     * given prefix for filter
+     */
+    private final String prefix;
 
     /**
      * constructor for prefix Filter
