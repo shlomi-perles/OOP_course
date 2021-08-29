@@ -9,6 +9,9 @@ filesprocessing\DirectoryProcessor.java - main class
 filesprocessing\QuickSort.java - quick sort implement
 filesprocessing\Section.java - implement section class
 filesprocessing\Type2ErrorException.java - exception class of type 2
+filesprocessing\SectionTitleException.java - exception for bad section order/filter extend type 2
+filesprocessing\FileException.java - exception if there is file problem extend type 2 
+
 filesprocessing\filter\AllFilter.java - The all filter
 filesprocessing\filter\BetweenFilter.java - The between filter
 filesprocessing\filter\ContainsFilter.java - The contains filter
@@ -23,34 +26,48 @@ filesprocessing\filter\QuestionFilter.java - The question filter abstract class
 filesprocessing\filter\SmallerThanFilter.java - The smaller than filter
 filesprocessing\filter\SuffixFilter.java - The suffix filter
 filesprocessing\filter\WritableFilter.java - The writable filter
+
 filesprocessing\order\AbsOrder.java - The abs comparator
 filesprocessing\order\OrderFactory.java - The order factory
 filesprocessing\order\SizeOrder.java - The size comparator
 filesprocessing\order\TypeOrder.java - The type comparator
+
 filesprocessing\parser\CommandFileParser.java - parse command file
 filesprocessing\parser\FilterException.java - Exception for filter problem
 filesprocessing\parser\FilterParser.java - parse filter line
 filesprocessing\parser\OrderException.java - Exception for order problems
 filesprocessing\parser\OrderParser.java - parse order line
+filesprocessing\parser\Type1ErrorException.java - type 1 exception implement
 
 =============================
 =          Design           =
 =============================
-I applied the spaceship as an abstract 
-class and in addition I applied another 
-abstract class - a enemy ship that inherits from the spaceship class. 
-I chose this design because each spaceship type is an object in itself but they 
-are all in "is a" relationship with the spaceship as well as in this relationship with the enemy ship.
-Extensibility - New capabilities can be created for each spacecraft, all spacecraft together and all enemy 
-spacecraft together thanks to the abstract implement of those classes.
-Modularity - There is a platoon for each spacecraft and in addition a platoon that unites all the enemy spacecraft.
-drunkard ship behavior - Performs loops within a random radius and shoots at random times.
-special ship behavior - crazy spaceship! The spacecraft performs loops and fires in all directions.
+There are two main phases within the software: the parsing phase and the printing phase.
+A class has been created for each task in the parsing phase, so that each task is responsible for
+a specific parsing. They are: filter parsing, order parsing. There are even smaller parts of the code
+in each of these classes (you can see them in the methods themselves).I have found that breaking down the
+parsing into small tasks makes it easier to debug as well as easier to understand the code.
+In the second phase, the key to orderly and correct printing was to create the section class and
+the fields that it could access. During the parsing phase, the sections he parsed were transferred to
+the printing phase, and in addition, the lines with errors were determined in these classes.
+Each section had a method for printing, so he could print what he needed himself because each
+section contained all the relevant information.
+I also used factory design to create objects like filters and orders.
 
 =============================
-=  Implementation details   =
+=  exceptions hierarchy   =
 =============================
-Each spaceship department must implement its unique behavior 
-that will be activated in each round by "actionByShipType" method. Therefore this method 
-is abstract and each class implement the method. In addition, each type of spaceship 
-implement has its own GUI - the human spaceship and the enemy spaceship separately.
+The hierarchy is as follows:
+
+Exception
+├── Type1ErrorException
+│   ├── FilterException           - If the line describing the filter does not describe proper input
+│   └── OrderException            - If the line describing the order does not describe proper input
+└── Type2ErrorException
+    ├── SectionTitleException     - If there was a problem with the titles: FILTER, ORDER
+    └── FileException             - If there was a problem accessing or using the file
+
+
+There are two basic types of division provided by the course.
+The internal hierarchy results from a division of the types into smaller parts - each
+type was used in a different situation and therefore this division was necessary.

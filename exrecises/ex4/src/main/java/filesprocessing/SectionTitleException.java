@@ -3,22 +3,22 @@ package filesprocessing;
 /**
  * this exception thrown when there is a problem of type 2
  */
-public class SectionNameException extends Type2ErrorException {
+public class SectionTitleException extends Type2ErrorException {
     private static final long serialVersionUID = 1L;
 
     /**
-     * constructor for SectionNameException
+     * constructor for SectionTitleException
      *
      * @param errorMessage the message error
      */
-    public SectionNameException(String errorMessage) {
+    public SectionTitleException(String errorMessage) {
         super(errorMessage);
     }
 
     /**
-     * constructor for SectionNameException
+     * constructor for SectionTitleException
      */
-    public SectionNameException() {
+    public SectionTitleException() {
         super();
     }
 }

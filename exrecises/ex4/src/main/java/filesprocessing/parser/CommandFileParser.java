@@ -1,7 +1,7 @@
 package filesprocessing.parser;
 
 import filesprocessing.FileException;
-import filesprocessing.SectionNameException;
+import filesprocessing.SectionTitleException;
 import filesprocessing.Type2ErrorException;
 import filesprocessing.Section;
 
@@ -80,7 +80,7 @@ public class CommandFileParser {
 
                 case FILTER_INDEX:
                     if (!(Objects.equals(line, FILTER))) {
-                        throw new SectionNameException(BAD_SUBSECTION_NAME_ERROR);
+                        throw new SectionTitleException(BAD_SUBSECTION_NAME_ERROR);
                     }
                     curSection = new Section();
                     ++lastPhase;
@@ -98,7 +98,7 @@ public class CommandFileParser {
 
                 case ORDER_INDEX:
                     if (!(Objects.equals(line, ORDER))) {
-                        throw new SectionNameException(BAD_SUBSECTION_NAME_ERROR);
+                        throw new SectionTitleException(BAD_SUBSECTION_NAME_ERROR);
                     }
                     sections.add(curSection);
                     ++lastPhase;
