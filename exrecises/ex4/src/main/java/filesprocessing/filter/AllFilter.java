@@ -5,9 +5,13 @@ import java.io.File;
 /**
  * A type of filter that received any file
  */
-public class AllFilter implements Filter{
+public class AllFilter implements Filter {
 
-    @Override
+    /**
+     * gets all files
+     * @param file the file we want to filter
+     * @return
+     */
     public boolean filter(File file) {
         return true;
     }

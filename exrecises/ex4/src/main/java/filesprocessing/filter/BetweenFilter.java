@@ -28,7 +28,12 @@ public class BetweenFilter implements Filter {
     }
 
 
-    @Override
+    /**
+     * filter all files with size between bounds
+     *
+     * @param file the file we want to filter
+     * @return true if the file size in the bounds
+     */
     public boolean filter(File file) {
         long fileSize = file.length();
         return this.lowerBoundary <= fileSize && fileSize <= upperBoundary;

@@ -17,7 +17,11 @@ public class ExecutableFilter extends QuestionFilter {
         super(yesOrNo);
     }
 
-    @Override
+    /**
+     * filter files that executable
+     * @param file the file we want to filter
+     * @return true if it is, false else
+     */
     public boolean filter(File file) {
         return this.getYesOrNo() == file.canExecute();
     }

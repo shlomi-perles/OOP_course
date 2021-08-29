@@ -19,7 +19,11 @@ public class FileFilter implements Filter {
     }
 
 
-    @Override
+    /**
+     * filter file with the given name
+     * @param file the file we want to filter
+     * @return true if it is, false else
+     */
     public boolean filter(File file) {
         String filename = file.getName();
         return filename.equals(searchName);

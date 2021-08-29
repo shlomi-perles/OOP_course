@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * this class filter a file if the file is writable file
  */
-public class WritableFilter extends QuestionFilter{
+public class WritableFilter extends QuestionFilter {
     /**
      * constructor for WritableFilter
      *
@@ -15,7 +15,12 @@ public class WritableFilter extends QuestionFilter{
         super(yesOrNo);
     }
 
-    @Override
+    /**
+     * filter all files that are writable
+     *
+     * @param file the file we want to filter
+     * @return true if it is, false else
+     */
     public boolean filter(File file) {
         return this.getYesOrNo() == file.canWrite();
     }

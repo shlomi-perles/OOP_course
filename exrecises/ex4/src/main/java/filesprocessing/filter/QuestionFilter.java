@@ -1,5 +1,8 @@
 package filesprocessing.filter;
 
+/**
+ * Abstract class for yes/no filters
+ */
 public abstract class QuestionFilter implements Filter {
     /**
      * if the answer is yes - true, otherwise - false
@@ -17,6 +20,7 @@ public abstract class QuestionFilter implements Filter {
 
     /**
      * getter for yes or no bollean
+     *
      * @return boolean that said if the answer for the question is yes or no
      */
     public boolean getYesOrNo() {

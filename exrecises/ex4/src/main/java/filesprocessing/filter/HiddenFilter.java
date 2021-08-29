@@ -16,7 +16,12 @@ public class HiddenFilter extends QuestionFilter {
         super(yesOrNo);
     }
 
-    @Override
+    /**
+     * filter all files the hidden
+     *
+     * @param file the file we want to filter
+     * @return true if it is, false else
+     */
     public boolean filter(File file) {
         return this.getYesOrNo() == file.isHidden();
     }

@@ -22,10 +22,15 @@ public class GreaterThanFilter implements Filter {
      * @param lowerBound double number
      */
     public GreaterThanFilter(double lowerBound) {
-        this.lowerBound = lowerBound*KB;
+        this.lowerBound = lowerBound * KB;
     }
 
-    @Override
+    /**
+     * filter all file that their size greater than the bound
+     *
+     * @param file the file we want to filter
+     * @return true if it is, false else
+     */
     public boolean filter(File file) {
         long fileSize = file.length();
         return lowerBound < fileSize;

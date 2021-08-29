@@ -25,7 +25,12 @@ public class SmallerThanFilter implements Filter {
         this.upperBound = upperBound * KB;
     }
 
-    @Override
+    /**
+     * filter all files that their size is smaller than the given bound
+     *
+     * @param file the file we want to filter
+     * @return true if it is, false else
+     */
     public boolean filter(File file) {
         long fileSize = file.length();
         return upperBound > fileSize;

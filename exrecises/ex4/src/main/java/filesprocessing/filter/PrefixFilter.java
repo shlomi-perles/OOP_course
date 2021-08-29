@@ -17,7 +17,12 @@ public class PrefixFilter implements Filter {
         this.prefix = prefix;
     }
 
-    @Override
+    /**
+     * filter files with the given prefix
+     *
+     * @param file the file we want to filter
+     * @return true if it is, false else
+     */
     public boolean filter(File file) {
         String filename = file.getName();
         return filename.startsWith(prefix);

@@ -16,13 +16,14 @@ public class FilterFactory {
     /**
      * args index for filters
      */
-    private final static int ARG1 = 0,ARG2 = 1;
+    private final static int ARG1 = 0, ARG2 = 1;
 
 
     /**
      * get arguments and return the correct filter
+     *
      * @param filter string of the filter name
-     * @param args array of two strings (can be empty) with the necessary arguments for the filter
+     * @param args   array of two strings (can be empty) with the necessary arguments for the filter
      * @return a filter
      */
     public static Filter createFilter(String filter, String[] args) {

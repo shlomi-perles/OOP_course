@@ -17,7 +17,12 @@ public class ContainsFilter implements Filter {
         this.containsString = containsString;
     }
 
-    @Override
+    /**
+     * check if file contain a string
+     *
+     * @param file the file we want to filter
+     * @return true if contain, false else
+     */
     public boolean filter(File file) {
         String filename = file.getName();
         return filename.contains(containsString);
