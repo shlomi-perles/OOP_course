@@ -45,8 +45,8 @@ public class DirectoryProcessor {
      * @param args Two strings: sourcedir, commandfile
      */
     public static void main(String[] args) {
-        ArrayList<Section> sectionArrayList = null;
-        ArrayList<File> filesArray = null;
+        ArrayList<Section> sectionArrayList = new ArrayList<Section>();
+        ArrayList<File> filesArray =new ArrayList<File>();
 
         if (args.length != ARGS_NUM) {
             System.err.println(ERROR + ARGS_NUM_ERROR);
@@ -68,11 +68,9 @@ public class DirectoryProcessor {
             return;
         }
 
-        if (sectionArrayList == null) return;
-
         for (Section section: sectionArrayList)
         {
-            section.print(filesArray);
+            section.print(new ArrayList<File>(filesArray));
         }
     }
 

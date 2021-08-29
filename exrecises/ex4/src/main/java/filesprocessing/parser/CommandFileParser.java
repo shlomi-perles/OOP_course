@@ -88,19 +88,19 @@ public class CommandFileParser {
         if (lines.size() == 0) return sections;
 
         int i = -1;
-        int relativeSectionIndex;
+
         Section curSection = new Section();
+        int lastPhase = 0; // initial to last phase for avoid cold-start problem
         for (String line : lines) { //TODO: try catch throws from parsers
             ++i;
-            relativeSectionIndex = i % SECTION_SIZE;
-
-            switch (relativeSectionIndex) {
+            switch (lastPhase) {
 
                 case FILTER_INDEX:
                     if (!(Objects.equals(line, FILTER))) {
                         throw new Type2ErrorException(BAD_SUBSECTION_NAME_ERROR);
                     }
                     curSection = new Section();
+                    ++lastPhase;
                     break;
 
                 case FILTER_TYPE_INDEX:
@@ -110,12 +110,18 @@ public class CommandFileParser {
                     } catch (FilterException filterExceptionMsg) {
                         curSection.addLineError(i + 1);
                     }
+                    ++lastPhase;
                     break;
 
                 case ORDER_INDEX:
                     if (!(Objects.equals(line, ORDER))) {
                         throw new Type2ErrorException(BAD_SUBSECTION_NAME_ERROR);
                     }
+                    sections.add(curSection);
+                    ++lastPhase;
+
+                    // check if next line is FILTER
+                    if (i + 1 < lines.size() && Objects.equals(lines.get(i + 1), FILTER)) lastPhase = 0;
                     break;
 
                 case ORDER_TYPE_INDEX:
@@ -125,12 +131,15 @@ public class CommandFileParser {
                     } catch (OrderException orderExceptionMsg) {
                         curSection.addLineError(i + 1);
                     }
-                    sections.add(curSection);
+                    lastPhase = 0;
                     break;
             }
         }
-        if (i % SECTION_SIZE != SECTION_SIZE - 1)
+
+        //Check if didn't stop unexpectedly
+        if (lastPhase < ORDER_TYPE_INDEX && lastPhase > FILTER_INDEX) {
             throw new Type2ErrorException(COMMAND_FILE_ENDED_UNEXPECTEDLY);
+        }
         return sections;
     }
 
@@ -149,7 +158,7 @@ public class CommandFileParser {
             }
             return lines;
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             throw new Type2ErrorException(SCANNER_ERROR);
         }
     }

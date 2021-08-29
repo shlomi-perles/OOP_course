@@ -8,6 +8,7 @@ import filesprocessing.order.OrderFactory;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -84,12 +85,34 @@ public class Section {
             System.err.println(WARNING_MESSAGE + lineError);
         }
 
+        filesList = filterFiles(filesList);
+
         QuickSort.sort(filesList, 0, filesList.size() - 1, order);
         if (reverseOrder) Collections.reverse(filesList);
 
         for (File file : filesList) {
             System.out.println(file.getName());
         }
+    }
+
+    /**
+     * filter files list accotding to the current filter
+     *
+     * @param filesList list with all file in dir
+     */
+    private ArrayList<File> filterFiles(ArrayList<File> filesList) {
+        ArrayList<File> filterFilesList = new ArrayList<File>();
+        for (File file : filesList) {
+            boolean filterCurFile = filter.filter(file);
+            if (filterCurFile && !negateFilter) {
+                filterFilesList.add(file);
+
+            } else if (!filterCurFile && negateFilter) {
+                filterFilesList.add(file);
+            }
+
+        }
+        return filterFilesList;
     }
 
 }

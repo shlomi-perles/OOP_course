@@ -59,38 +59,41 @@ public class FilterParser {
             throw new FilterException();
         }
 
-        String[] args = Arrays.copyOfRange(lineArray, ARG1, lineArray.length);
+        String[] args = Arrays.copyOfRange(lineArray, 1, lineArray.length);
         boolean negateFilter;
 
 
         if (Arrays.asList(ONE_DOUBLE_FILTERS).contains(filter)) {
-            negateFilter = parseNot(args, ARGS_NUM_ONE_DOUBLE + 1);
+            negateFilter = parseNot(args, ARGS_NUM_ONE_DOUBLE);
             if (negateFilter) additionNotArg = 1;
             expectedArgs = ARGS_NUM_ONE_DOUBLE + additionNotArg;
 
             doubleCheck(args);
 
         } else if (Arrays.asList(TWO_DOUBLE_FILTERS).contains(filter)) {
-            negateFilter = parseNot(args, ARGS_NUM_TWO_DOUBLE + 1);
+            negateFilter = parseNot(args, ARGS_NUM_TWO_DOUBLE);
             if (negateFilter) additionNotArg = 1;
             expectedArgs = ARGS_NUM_TWO_DOUBLE + additionNotArg;
 
             BetweenCheck(args);
 
         } else if (Arrays.asList(CONTAINS_FILTERS).contains(filter)) {
-            negateFilter = parseNot(args, ARGS_NUM_ONE_STR + 1);
+            negateFilter = parseNot(args, ARGS_NUM_ONE_STR);
             if (negateFilter) additionNotArg = 1;
             expectedArgs = ARGS_NUM_ONE_STR + additionNotArg;
 
         } else if (Arrays.asList(YES_NO_FILTERS).contains(filter)) {
-            negateFilter = parseNot(args, ARGS_NUM_ONE_STR + 1);
+            negateFilter = parseNot(args, ARGS_NUM_ONE_STR);
             if (negateFilter) additionNotArg = 1;
             expectedArgs = ARGS_NUM_ONE_STR + additionNotArg;
-
-            args[YES_NO_INDEX] = String.valueOf(yesNoCheck(args[YES_NO_INDEX]));
+            try {
+                args[YES_NO_INDEX] = String.valueOf(yesNoCheck(args[YES_NO_INDEX]));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new FilterException();
+            }
 
         } else if (Arrays.asList(NO_ARGS_FILTERS).contains(filter)) {
-            negateFilter = parseNot(args, 1);
+            negateFilter = parseNot(args, 0);
             if (negateFilter) additionNotArg = 1;
             expectedArgs = additionNotArg;
 
