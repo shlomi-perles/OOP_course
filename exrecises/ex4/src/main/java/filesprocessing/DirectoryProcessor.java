@@ -63,7 +63,7 @@ public class DirectoryProcessor {
 
         try {
             filesArray = dirToArray(args[SOURCE_DIR_ARG_INDEX]);
-        } catch (IOException ioException) {
+        } catch (Type2ErrorException type2ErrorException) {
             System.err.println(ERROR + CANT_READ_FILES);
             return;
         }
@@ -74,14 +74,19 @@ public class DirectoryProcessor {
     }
 
 
-    private static ArrayList<File> dirToArray(String sourceDir) throws IOException {
+    private static ArrayList<File> dirToArray(String sourceDir) throws Type2ErrorException {
         ArrayList<File> result = new ArrayList<File>();
-        File files = new File(sourceDir);
-        for (File file : Objects.requireNonNull(files.listFiles())) {
-            if (!file.isDirectory()) {
-                result.add(file);
+        try {
+            File files = new File(sourceDir);
+            for (File file : Objects.requireNonNull(files.listFiles())) {
+                if (!file.isDirectory()) {
+                    result.add(file);
+                }
             }
+        } catch (NullPointerException | SecurityException e) {
+            throw new FileException(CANT_READ_FILES);
         }
+
         return result;
     }
 }

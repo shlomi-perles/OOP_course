@@ -1,5 +1,7 @@
 package filesprocessing.parser;
 
+import filesprocessing.FileException;
+import filesprocessing.SectionNameException;
 import filesprocessing.Type2ErrorException;
 import filesprocessing.Section;
 
@@ -55,7 +57,7 @@ public class CommandFileParser {
         try {
             scanner = new Scanner(new File(commandFilePath));
         } catch (IOException e) {
-            throw new Type2ErrorException(SCANNER_ERROR);
+            throw new FileException(SCANNER_ERROR);
         }
     }
 
@@ -78,7 +80,7 @@ public class CommandFileParser {
 
                 case FILTER_INDEX:
                     if (!(Objects.equals(line, FILTER))) {
-                        throw new Type2ErrorException(BAD_SUBSECTION_NAME_ERROR);
+                        throw new SectionNameException(BAD_SUBSECTION_NAME_ERROR);
                     }
                     curSection = new Section();
                     ++lastPhase;
@@ -96,7 +98,7 @@ public class CommandFileParser {
 
                 case ORDER_INDEX:
                     if (!(Objects.equals(line, ORDER))) {
-                        throw new Type2ErrorException(BAD_SUBSECTION_NAME_ERROR);
+                        throw new SectionNameException(BAD_SUBSECTION_NAME_ERROR);
                     }
                     sections.add(curSection);
                     ++lastPhase;
@@ -119,7 +121,7 @@ public class CommandFileParser {
 
         //Check if didn't stop unexpectedly
         if (lastPhase < ORDER_TYPE_INDEX && lastPhase > FILTER_INDEX) {
-            throw new Type2ErrorException(COMMAND_FILE_ENDED_UNEXPECTEDLY);
+            throw new FileException(COMMAND_FILE_ENDED_UNEXPECTEDLY);
         }
         return sections;
     }
@@ -140,7 +142,7 @@ public class CommandFileParser {
             return lines;
 
         } catch (RuntimeException e) {
-            throw new Type2ErrorException(SCANNER_ERROR);
+            throw new FileException(SCANNER_ERROR);
         }
     }
 }
